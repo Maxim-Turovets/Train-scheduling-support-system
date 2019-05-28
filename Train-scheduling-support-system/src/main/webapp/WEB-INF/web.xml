@@ -4,13 +4,97 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+
+
+
+    <!--//////////////////////-->
+
+     <!--ADD ROUTE SERVLET-->
+    <servlet>
+        <servlet-name>AddRouteServlet</servlet-name>
+        <servlet-class>controller.ServletAddRoute</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddRouteServlet</servlet-name>
+        <url-pattern>/addRoute</url-pattern>
+    </servlet-mapping>
+
+    <!--START STATION JSP-->
+    <servlet>
+    <servlet-name>startStationJsp</servlet-name>
+    <jsp-file>/jsp/startStationJsp.jsp</jsp-file>
+</servlet>
+
+    <servlet-mapping>
+        <servlet-name>startStationJsp</servlet-name>
+        <url-pattern>/startStationJsp</url-pattern>
+    </servlet-mapping>
+
+   <!--ADD  ROUTE JSP-->
+    <servlet>
+        <servlet-name>addRouteJsp</servlet-name>
+        <jsp-file>/jsp/addRouteJsp.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addRouteJsp</servlet-name>
+        <url-pattern>/addRouteJsp</url-pattern>
+    </servlet-mapping>
+
+     <!--MAIN SERVLET-->
     <servlet>
         <servlet-name>MainServlet</servlet-name>
-        <servlet-class>MainServlet</servlet-class>
+        <servlet-class>controller.ServletMain</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <url-pattern>/main</url-pattern>
     </servlet-mapping>
+
+    <!--MAIN JSP-->
+    <servlet>
+        <servlet-name>mainJsp</servlet-name>
+        <jsp-file>/jsp/mainJsp.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mainJsp</servlet-name>
+        <url-pattern>/mainJsp</url-pattern>
+    </servlet-mapping>
+
+
+    <!--INFO SERVLET-->
+    <servlet>
+        <servlet-name>InfoServlet</servlet-name>
+        <servlet-class>controller.ServletInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InfoServlet</servlet-name>
+        <url-pattern>/info</url-pattern>
+    </servlet-mapping>
+
+    <!--MAIN JSP-->
+    <servlet>
+        <servlet-name>infoJsp</servlet-name>
+        <jsp-file>/jsp/infoJsp.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>infoJsp</servlet-name>
+        <url-pattern>/infoJsp</url-pattern>
+    </servlet-mapping>
+
+    <!--SCHEDULE JSP-->
+    <servlet>
+        <servlet-name>scheduleJsp</servlet-name>
+        <jsp-file>/jsp/scheduleJsp.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>scheduleJsp</servlet-name>
+        <url-pattern>/scheduleJsp</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
