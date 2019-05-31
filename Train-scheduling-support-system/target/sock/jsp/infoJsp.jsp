@@ -14,6 +14,10 @@
         <%@include file="/webresourse/css/main.css"%>
     </style>
 
+    <div style="height:50px;left:2%;position: fixed;top: 2%;" >
+        <button class="addRouteButton" onclick="window.location.href='/sock/mainJsp'">Home</button>
+    </div>
+
 <%   BaseGetInfo baseGetInfo = new BaseGetInfo();
      ArrayList<Integer> stationList = baseGetInfo.getCrossIndex(request.getParameter("stationName"));
 %>

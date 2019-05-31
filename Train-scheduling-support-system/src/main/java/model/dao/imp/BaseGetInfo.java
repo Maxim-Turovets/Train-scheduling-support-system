@@ -478,4 +478,25 @@ public class BaseGetInfo {
         return  null;
     }
 
+
+    public void deleteRoute(int index){
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = this.connection.createStatement();
+            statement.execute("DELETE FROM Route WHERE route_id="+index);
+            statement.close();
+
+            statement = this.connection.createStatement();
+            statement.execute("DELETE FROM Schedule WHERE route_id="+index);
+            statement.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }

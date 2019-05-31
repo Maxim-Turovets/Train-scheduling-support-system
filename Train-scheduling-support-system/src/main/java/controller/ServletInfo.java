@@ -19,14 +19,25 @@ public class ServletInfo extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        if(request.getParameter("delete")!=null)
+        {
+            String strIndex = request.getParameter("delete");
+            int result = Integer.parseInt(strIndex);
+            System.out.println(result);
 
-        String stationName = request.getParameter("stationName");
+            BaseGetInfo baseGetInfo = new BaseGetInfo();
+            baseGetInfo.deleteRoute(result);
+            RequestDispatcher dispatcher = getServletContext()
+                    .getRequestDispatcher("/scheduleJsp");
+            dispatcher.forward(request, response);
+        }
 
 
-        //System.out.println(request.getParameter("stationName"));
 
-        BaseGetInfo baseGetInfo = new BaseGetInfo();
-        ArrayList<String> stationList = baseGetInfo.getDoubleNameCrossing(1);
+
+
+   //     BaseGetInfo baseGetInfo = new BaseGetInfo();
+   //     ArrayList<String> stationList = baseGetInfo.getDoubleNameCrossing(1);
 
 //        System.out.println(baseGetInfo.getCrossingInStation(stationList));
 //        System.out.println(stationList);
@@ -34,7 +45,7 @@ public class ServletInfo extends HttpServlet {
 //        System.out.println(baseGetInfo.getStartCrossingTimeArray(2));
 //        System.out.println(baseGetInfo.getEndCrossingTimeArray(2));
 
-        System.out.println(baseGetInfo.getDoubleNameCrossing(1));
+  //      System.out.println(baseGetInfo.getDoubleNameCrossing(1));
             RequestDispatcher dispatcher = getServletContext()
                     .getRequestDispatcher("/infoJsp");
             dispatcher.forward(request, response);

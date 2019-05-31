@@ -28,7 +28,8 @@ public class ServletAddRoute extends HttpServlet {
                 request.getSession().setAttribute("currentStation", startStation);
                 request.getSession().setAttribute("currentTime", startTime);
                 request.setAttribute("nextStation", startStation);
-            } else {
+            }
+            else {
                 request.setAttribute("nextStation", nextStation);
                 request.getSession().setAttribute("currentStation", nextStation);
             }
@@ -85,13 +86,7 @@ public class ServletAddRoute extends HttpServlet {
             save(request);
             addInSchedule(request);
 
-            request.getSession().setAttribute("stationList", null);
-            request.getSession().setAttribute("timeList", null);
-            request.getSession().setAttribute("startStation", null);
-            request.getSession().setAttribute("startTime", null);
-            request.getSession().setAttribute("currentStation", null);
-            request.getSession().setAttribute("currentTime", null);
-            request.setAttribute("nextStation", null);
+            nullValue(request);
 
             RequestDispatcher dispatcher = getServletContext()
                     .getRequestDispatcher("/startStationJsp");
@@ -101,13 +96,7 @@ public class ServletAddRoute extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getSession().setAttribute("stationList", null);
-        request.getSession().setAttribute("timeList", null);
-        request.getSession().setAttribute("startStation", null);
-        request.getSession().setAttribute("startTime", null);
-        request.getSession().setAttribute("currentStation", null);
-        request.getSession().setAttribute("currentTime", null);
-        request.setAttribute("nextStation", null);
+        nullValue(request);
 
         RequestDispatcher dispatcher = getServletContext()
                 .getRequestDispatcher("/startStationJsp");
@@ -175,5 +164,16 @@ public class ServletAddRoute extends HttpServlet {
         }
 
         baseGetInfo.setLastIndex(lastIndex);
+    }
+
+    private void  nullValue(HttpServletRequest request)
+    {
+        request.getSession().setAttribute("stationList", null);
+        request.getSession().setAttribute("timeList", null);
+        request.getSession().setAttribute("startStation", null);
+        request.getSession().setAttribute("startTime", null);
+        request.getSession().setAttribute("currentStation", null);
+        request.getSession().setAttribute("currentTime", null);
+        request.setAttribute("nextStation", null);
     }
 }

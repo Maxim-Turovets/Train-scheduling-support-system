@@ -18,6 +18,10 @@
 
 
 <body>
+<div style="height:50px;width: 100%;left:2%;position: fixed;top: 2%;" >
+    <button class="addRouteButton" onclick="window.location.href='/sock/mainJsp'">Home</button>
+</div>
+
 <table class="cinereousTable" style="max-width: 250px;margin-left: 40%;margin-top: 2%">
 
     <thead>

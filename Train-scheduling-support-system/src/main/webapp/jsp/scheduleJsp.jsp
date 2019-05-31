@@ -18,6 +18,11 @@
 
 </head>
 <body>
+
+<div style="height:50px;width: 100%;left:2%;position: fixed;top: 2%;" >
+    <button class="addRouteButton" onclick="window.location.href='/sock/mainJsp'">Home</button>
+</div>
+
         <table class="cinereousTable" style="border: 6px solid #fe8300; text-align: center">
             <thead>
             <tr>
@@ -38,8 +43,13 @@
       <table class="cinereousTable">
        <thead>
         <tr>
-            <th><h2><%=stationList.get(0)%>-<%=stationList.get(stationList.size()-1)%>-<%=currentIndex%></h2></th>
-            <th><h2><%=timeList.get(0)%>-<%=timeList.get(timeList.size()-1)%></h2></th>
+            <th><h2><%=stationList.get(0)%>-<%=stationList.get(stationList.size()-1)%>- <b style="color:black"><%=currentIndex%></b></h2></th>
+            <th><h2><%=timeList.get(0)%>-<%=timeList.get(timeList.size()-1)%></h2>
+                <form action="/sock/info" method="get">
+                    <input type="hidden" name="delete" value="<%=currentIndex%>">
+                    <button type="submit">delete</button>
+                </form>
+            </th>
         </tr>
        </thead>
 
