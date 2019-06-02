@@ -30,23 +30,26 @@
     <table class="cinereousTable">
         <thead>
         <tr>
-            <th>Путь</th>
-            <th>начало</th>
-            <th>конец</th>
+            <th>Train</th>
+            <th>Crossing name</th>
+            <th>Start time</th>
+            <th>End time</th>
         </tr>
         </thead>
 
-        <tfoot>
+        <tbody>
     <%for (int i = 0;i<stationList.size();i++){%>
       <%ArrayList<Integer> startTime=baseGetInfo.getStartCrossingTimeArray(stationList.get(i));%>
       <%ArrayList<Integer> endTime=baseGetInfo.getEndCrossingTimeArray(stationList.get(i));%>
+      <%String trainName = baseGetInfo.getNameTrainInSchedule(baseGetInfo.getRouteId(stationList.get(i)));%>
          <%for (int j = 0;j<startTime.size();j++){%>
         <tr>
+            <td><%=trainName%></td>
             <td><%=baseGetInfo.getDoubleNameCrossing(stationList.get(i)).get(0)+"  -  "+baseGetInfo.getDoubleNameCrossing(stationList.get(i)).get(1)%></td>
             <td><%=startTime.get(j)%></td>
             <td><%=endTime.get(j)%></td>
         </tr>
-        </tfoot>
+        </tbody>
          <%}%>
     <%}%>
     </table>

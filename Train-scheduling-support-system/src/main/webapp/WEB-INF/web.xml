@@ -96,5 +96,36 @@
         <url-pattern>/scheduleJsp</url-pattern>
     </servlet-mapping>
 
+    <!--MAP JSP-->
+    <servlet>
+        <servlet-name>mapJsp</servlet-name>
+        <jsp-file>/jsp/mapJsp.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mapJsp</servlet-name>
+        <url-pattern>/mapJsp</url-pattern>
+    </servlet-mapping>
+
+    <!--ADD  TRAIN JSP-->
+    <servlet>
+        <servlet-name>addTrainJsp</servlet-name>
+        <jsp-file>/jsp/addTrainJsp.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addTrainJsp</servlet-name>
+        <url-pattern>/addTrainJsp</url-pattern>
+    </servlet-mapping>
+
+    <!--ADD TRAIN SERVLET-->
+    <servlet>
+        <servlet-name>AddTrainServlet</servlet-name>
+        <servlet-class>controller.ServletAddTrain</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddTrainServlet</servlet-name>
+        <url-pattern>/addTrain</url-pattern>
+    </servlet-mapping>
 
 </web-app>

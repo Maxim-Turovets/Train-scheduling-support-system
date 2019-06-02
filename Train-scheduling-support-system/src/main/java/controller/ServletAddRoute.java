@@ -16,7 +16,8 @@ import java.util.Enumeration;
 public class ServletAddRoute extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if(request.getParameter("save")==null) {
+        if (request.getParameter("save") == null)
+        {
             String startStation = request.getParameter("startStation");
             String startTime = request.getParameter("startTime");
             String nextStation = request.getParameter("nextStation");
@@ -25,13 +26,12 @@ public class ServletAddRoute extends HttpServlet {
             if (request.getSession().getAttribute("startStation") == null) {
                 request.getSession().setAttribute("startStation", startStation);
                 request.getSession().setAttribute("startTime", startTime);
-                request.getSession().setAttribute("currentStation", startStation);
-                request.getSession().setAttribute("currentTime", startTime);
+//                request.getSession().setAttribute("currentStation", startStation);
+//                request.getSession().setAttribute("currentTime", startTime);
                 request.setAttribute("nextStation", startStation);
-            }
-            else {
+            } else {
                 request.setAttribute("nextStation", nextStation);
-                request.getSession().setAttribute("currentStation", nextStation);
+//                request.getSession().setAttribute("currentStation", nextStation);
             }
 
 
@@ -60,7 +60,8 @@ public class ServletAddRoute extends HttpServlet {
                 int currentTime = (Integer) d.getTimeCrossing(stationList.get(stationList.size() - 2), stationList.get(stationList.size() - 1));
                 int newTime = deprecatedTime + currentTime;
 
-                String lastStation = stationList.get(stationList.size() - 1);                String preLastStation = stationList.get(stationList.size() - 2);
+                String lastStation = stationList.get(stationList.size() - 1);
+                String preLastStation = stationList.get(stationList.size() - 2);
                 int crossId = d.getCrossIndexInteger(lastStation, preLastStation);
 
                 System.out.println(route(crossId, deprecatedTime, newTime));
@@ -71,7 +72,6 @@ public class ServletAddRoute extends HttpServlet {
                 } else {
                     stationList.remove(stationList.size() - 1);
                     request.getSession().setAttribute("stationList", stationList);
-
                 }
 
 
@@ -82,14 +82,15 @@ public class ServletAddRoute extends HttpServlet {
                     .getRequestDispatcher("/addRouteJsp");
             dispatcher.forward(request, response);
         }
-        else {
+        else
+            {
             save(request);
             addInSchedule(request);
 
             nullValue(request);
 
             RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher("/startStationJsp");
+                    .getRequestDispatcher("/addTrainJsp");
             dispatcher.forward(request, response);
         }
     }
@@ -104,11 +105,9 @@ public class ServletAddRoute extends HttpServlet {
     }
 
 
-    private  void  printParametr(HttpServletRequest request)
-    {
+    private void printParametr(HttpServletRequest request) {
         Enumeration e = request.getParameterNames();
-        while(e.hasMoreElements())
-        {
+        while (e.hasMoreElements()) {
             Object obj = e.nextElement();
             String fieldName = (String) obj;
             String fieldValue = request.getParameter(fieldName);
@@ -116,58 +115,51 @@ public class ServletAddRoute extends HttpServlet {
         }
     }
 
-    private  boolean  route(Integer indexCrossing , int startTime, int endtime)
-    {
-     BaseGetInfo baseGetInfo = new BaseGetInfo();
+    private boolean route(Integer indexCrossing, int startTime, int endtime) {
+        BaseGetInfo baseGetInfo = new BaseGetInfo();
 
-     int routeStartTime =baseGetInfo.getStartCrossingTime(indexCrossing);
-     int routeEndTime = baseGetInfo.getEndCrossingTime(indexCrossing);
+        int routeStartTime = baseGetInfo.getStartCrossingTime(indexCrossing);
+        int routeEndTime = baseGetInfo.getEndCrossingTime(indexCrossing);
 
-     if((startTime>=routeStartTime&&startTime<=routeEndTime)||(endtime>=routeStartTime&&endtime<=routeEndTime))
-          {
-             return false;
-         }
+        if ((startTime >= routeStartTime && startTime <= routeEndTime) || (endtime >= routeStartTime && endtime <= routeEndTime)) {
+            return false;
+        }
 
-         return  true;
+        return true;
     }
 
 
-    private  void  save(HttpServletRequest request)
-    {
+    private void save(HttpServletRequest request) {
         BaseGetInfo baseGetInfo = new BaseGetInfo();
         ArrayList<String> stationList = (ArrayList<String>) request.getSession().getAttribute("stationList");
-        ArrayList<Integer>timeList = (ArrayList<Integer>)request.getSession().getAttribute("timeList");
+        ArrayList<Integer> timeList = (ArrayList<Integer>) request.getSession().getAttribute("timeList");
         int size = stationList.size();
 
-        int lastIndex = baseGetInfo.getLastIndex()+1;
+        int lastIndex = baseGetInfo.getLastIndex() + 1;
         baseGetInfo.setLastIndex(lastIndex);
-        for(int i= 0;i<stationList.size()-1;i++)
-        {
-            int indexCrossing = baseGetInfo.getCrossIndexInteger(stationList.get(i),stationList.get(i+1));
-            baseGetInfo.insertRoute(baseGetInfo.getLastIndex(),indexCrossing,timeList.get(i),timeList.get(i+1),i);
+        for (int i = 0; i < stationList.size() - 1; i++) {
+            int indexCrossing = baseGetInfo.getCrossIndexInteger(stationList.get(i), stationList.get(i + 1));
+            baseGetInfo.insertRoute(baseGetInfo.getLastIndex(), indexCrossing, timeList.get(i), timeList.get(i + 1), i);
         }
 
 
     }
 
-    private  void addInSchedule(HttpServletRequest request)
-    {
+    private void addInSchedule(HttpServletRequest request) {
         BaseGetInfo baseGetInfo = new BaseGetInfo();
         ArrayList<String> stationList = (ArrayList<String>) request.getSession().getAttribute("stationList");
-        ArrayList<Integer>timeList = (ArrayList<Integer>)request.getSession().getAttribute("timeList");
+        ArrayList<Integer> timeList = (ArrayList<Integer>) request.getSession().getAttribute("timeList");
         int lastIndex = baseGetInfo.getLastIndex();
         int size = stationList.size();
 
-        for(int i= 0;i<stationList.size();i++)
-        {
-            baseGetInfo.addRouteInSchedule(stationList.get(i),timeList.get(i),lastIndex,i);
+        for (int i = 0; i < stationList.size(); i++) {
+            baseGetInfo.addRouteInSchedule(stationList.get(i), timeList.get(i), lastIndex, i);
         }
 
         baseGetInfo.setLastIndex(lastIndex);
     }
 
-    private void  nullValue(HttpServletRequest request)
-    {
+    private void nullValue(HttpServletRequest request) {
         request.getSession().setAttribute("stationList", null);
         request.getSession().setAttribute("timeList", null);
         request.getSession().setAttribute("startStation", null);

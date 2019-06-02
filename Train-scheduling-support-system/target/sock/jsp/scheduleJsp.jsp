@@ -40,10 +40,11 @@
         <%int currentIndex = indexList.get(i);%>
         <%ArrayList<String>stationList = BD.getStationSchedule(currentIndex);%>
         <%ArrayList<Integer>timeList = BD.getTimeSchedule(currentIndex);%>
+        <%String trainName = BD.getNameTrainInSchedule(currentIndex);%>
       <table class="cinereousTable">
        <thead>
         <tr>
-            <th><h2><%=stationList.get(0)%>-<%=stationList.get(stationList.size()-1)%>- <b style="color:black"><%=currentIndex%></b></h2></th>
+            <th><h2><b style="color:#476e9e"><%=trainName%></b>  <%=stationList.get(0)%>-<%=stationList.get(stationList.size()-1)%>- <b style="color:black"><%=currentIndex%></b></h2></th>
             <th><h2><%=timeList.get(0)%>-<%=timeList.get(timeList.size()-1)%></h2>
                 <form action="/sock/info" method="get">
                     <input type="hidden" name="delete" value="<%=currentIndex%>">

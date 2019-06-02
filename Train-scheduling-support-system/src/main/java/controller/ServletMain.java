@@ -1,5 +1,8 @@
 package controller;
 
+import controller.command.Command;
+import controller.command.CommandList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,21 +20,14 @@ public class ServletMain extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        if(request.getParameter("addRoute")!=null)
-        if(request.getParameter("addRoute").equals("addRoute"))
-        {
-            RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher("/startStationJsp");
-            dispatcher.forward(request, response);
-        }
+        String commandName = request.getParameter("command");
 
-        if(request.getParameter("getInfo")!=null)
-        if(request.getParameter("getInfo").equals("getInfo"))
-        {
-            RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher("/infoJsp");
+        Command command = CommandList.valueOf(commandName);
+
+        RequestDispatcher dispatcher = getServletContext()
+                    .getRequestDispatcher(command.execute());
             dispatcher.forward(request, response);
-        }
+
 
 
     }

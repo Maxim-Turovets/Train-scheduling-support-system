@@ -147,15 +147,15 @@ body {
 	font-family: "Raleway", sans-serif;
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 100vh;
-	overflow: hidden;
+	/*height: 100vh;*/
+	/*overflow: hidden;*/
 	/*display: flex;*/
 	justify-content: center;
 	align-items: center;
 	font-weight: 300;
 }
 .all {
-	margin-top: 340px;
+	margin-top: 290px;
 	display: flex;
 	perspective: 10px;
 	transform: perspective(300px) rotateX(20deg);

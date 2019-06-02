@@ -241,6 +241,22 @@ public class BaseGetInfo {
         return localList;
     }
 
+    public int getRouteId(int indexCrossing) {
+        int routeId = 0;
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("Select  route_id from Route\n" +
+                    "where crossing_id =" + indexCrossing);
+
+            routeId = resultSet.getInt(1);
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println("Trouble getRouteId");
+
+        }
+        return routeId;
+    }
 
     public int getEndCrossingTime(int indexCrossing) {
         int endTime = 0;
@@ -350,6 +366,7 @@ public class BaseGetInfo {
     }
 
 
+    // LastIndex
     public int getLastIndex() {
         int indexStation = 0;
         try {
@@ -478,8 +495,8 @@ public class BaseGetInfo {
         return  null;
     }
 
-
     public void deleteRoute(int index){
+        int trainId = getIndexTrain(getNameTrainInSchedule(index));
         Statement statement = null;
         ResultSet resultSet = null;
         try {
@@ -492,6 +509,13 @@ public class BaseGetInfo {
             statement.close();
 
 
+            statement.execute("\n" +
+                    " UPDATE  Train " +
+                    " set available=true"+
+                    " Where rowid ="+trainId);
+            statement.close();
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -499,4 +523,100 @@ public class BaseGetInfo {
 
     }
 
+    // TRAIN
+
+    public ArrayList<String> getAvailableTrain() {
+        ArrayList<String> trainList = new ArrayList<>();
+
+
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = this.connection.createStatement();
+            resultSet = statement.executeQuery("SELECT  name From Train WHere available = true");
+
+            while (resultSet.next()) {
+                trainList.add(resultSet.getString(1));
+            }
+            statement.close();
+
+            return trainList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return  null;
+    }
+
+    public String getNameTrain(int indexTrain) {
+
+        String nameTrain = new String();
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("Select  name from Train where rowid =" + indexTrain);
+
+            nameTrain = resultSet.getString(1);
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println("Trouble getNameStation");
+
+        }
+        return nameTrain;
+    }
+
+    public int getIndexTrain(String nameTrain) {
+
+        int indexTrain =0;
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("Select  rowid from Train where name ='" + nameTrain+"'");
+
+            indexTrain = resultSet.getInt(1);
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println("Trouble getNameStation");
+
+        }
+        return indexTrain;
+    }
+
+    public void setTrainInSchedule(int trainId) {
+        try {
+            Statement statement = this.connection.createStatement();
+            statement.execute("\n" +
+                    " UPDATE  Schedule " +
+                    " set train_id =" +trainId+" "+
+                    " Where route_id ="+getLastIndex());
+            statement.close();
+
+            statement.execute("\n" +
+                    " UPDATE  Train " +
+                    " set available=false "+
+                    " Where rowid ="+trainId);
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println("Trouble setTrainInSchedule");
+
+        }
+    }
+
+    public String getNameTrainInSchedule(int routeId) {
+
+        int  indexTrain = 0;
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("Select  train_id from Schedule where route_id =" + routeId);
+
+            indexTrain = resultSet.getInt(1);
+            statement.close();
+
+        } catch (SQLException e) {
+            System.out.println("Trouble getNameStation");
+
+        }
+        return getNameTrain(indexTrain);
+    }
 }
