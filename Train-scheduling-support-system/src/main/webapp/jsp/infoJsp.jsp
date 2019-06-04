@@ -1,5 +1,9 @@
-<%@ page import="model.dao.imp.BaseGetInfo" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.dao.daointerfaces.DAoSchedule" %>
+<%@ page import="model.dao.daointerfaces.DAoTrain" %>
+<%@ page import="model.dao.daointerfaces.DAoRoute" %>
+<%@ page import="model.dao.daointerfaces.DAoCrossing" %>
+<%@ page import="model.dao.imp.*" %><%--
   Created by IntelliJ IDEA.
   User: mturo
   Date: 27.05.2019
@@ -18,8 +22,13 @@
         <button class="addRouteButton" onclick="window.location.href='/sock/mainJsp'">Home</button>
     </div>
 
+    <%DAoSchedule dAoSchedule = new ScheduleTableInfo();%>
+    <%DAoTrain dAoTrain = new TrainTableInfo();%>
+    <%DAoRoute dAoRoute = new RouteTableInfo();%>
+    <%DAoCrossing dAoCrossing = new CrossingTableInfo();%>
+
 <%   BaseGetInfo baseGetInfo = new BaseGetInfo();
-     ArrayList<Integer> stationList = baseGetInfo.getCrossIndex(request.getParameter("stationName"));
+     ArrayList<Integer> stationList = dAoCrossing.getCrossIndex(request.getParameter("stationName"));
 %>
 
     <form  style="margin-left: 35%;" action="/sock/info" method="get">
@@ -38,14 +47,16 @@
         </thead>
 
         <tbody>
+
+
     <%for (int i = 0;i<stationList.size();i++){%>
-      <%ArrayList<Integer> startTime=baseGetInfo.getStartCrossingTimeArray(stationList.get(i));%>
-      <%ArrayList<Integer> endTime=baseGetInfo.getEndCrossingTimeArray(stationList.get(i));%>
-      <%String trainName = baseGetInfo.getNameTrainInSchedule(baseGetInfo.getRouteId(stationList.get(i)));%>
+      <%ArrayList<Integer> startTime=dAoRoute.getStartCrossingTimeArray(stationList.get(i));%>
+      <%ArrayList<Integer> endTime=dAoRoute.getEndCrossingTimeArray(stationList.get(i));%>
+      <%String trainName = dAoSchedule.getNameTrainInSchedule(dAoRoute.getRouteId(stationList.get(i)));%>
          <%for (int j = 0;j<startTime.size();j++){%>
         <tr>
             <td><%=trainName%></td>
-            <td><%=baseGetInfo.getDoubleNameCrossing(stationList.get(i)).get(0)+"  -  "+baseGetInfo.getDoubleNameCrossing(stationList.get(i)).get(1)%></td>
+            <td><%=dAoCrossing.getDoubleNameCrossing(stationList.get(i)).get(0)+"  -  "+dAoCrossing.getDoubleNameCrossing(stationList.get(i)).get(1)%></td>
             <td><%=startTime.get(j)%></td>
             <td><%=endTime.get(j)%></td>
         </tr>

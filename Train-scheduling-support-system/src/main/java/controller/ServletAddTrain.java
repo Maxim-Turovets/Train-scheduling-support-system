@@ -1,6 +1,9 @@
 package controller;
 
-import model.dao.imp.BaseGetInfo;
+import model.dao.daointerfaces.DAoSchedule;
+import model.dao.daointerfaces.DAoTrain;
+import model.dao.imp.ScheduleTableInfo;
+import model.dao.imp.TrainTableInfo;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,10 +17,12 @@ import java.io.IOException;
 public class ServletAddTrain extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        BaseGetInfo baseGetInfo = new BaseGetInfo();
+        DAoTrain dAoTrain = new TrainTableInfo();
+        DAoSchedule dAoSchedule = new ScheduleTableInfo();
+
         String nameTrain = request.getParameter("nameTrain");
-        int indexTrain = baseGetInfo.getIndexTrain(nameTrain);
-        baseGetInfo.setTrainInSchedule(indexTrain);
+        int indexTrain = dAoTrain.getIndexTrain(nameTrain);
+        dAoSchedule.setTrainInSchedule(indexTrain);
 
         RequestDispatcher dispatcher = getServletContext()
                 .getRequestDispatcher("/startStationJsp");

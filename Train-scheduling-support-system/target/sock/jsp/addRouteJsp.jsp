@@ -1,5 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.dao.imp.BaseGetInfo" %><%--
+<%@ page import="model.dao.imp.BaseGetInfo" %>
+<%@ page import="model.dao.daointerfaces.DAoStation" %>
+<%@ page import="model.dao.imp.StationTableInfo" %><%--
   Created by IntelliJ IDEA.
   User: mturo
   Date: 26.05.2019
@@ -34,7 +36,7 @@
 
 
     <%
-            BaseGetInfo baseGetInfo = new BaseGetInfo();
+            DAoStation baseGetInfo = new StationTableInfo();
             ArrayList<String> stationList = (ArrayList<String>) request.getSession().getAttribute("stationList");
             String lastStation = stationList.get(stationList.size() - 1);
             ArrayList<String> list = baseGetInfo.getArrayNameStation(baseGetInfo.getPossibleWay(baseGetInfo.getIndexStation(lastStation)));%>
@@ -74,11 +76,11 @@
 
 
 
-<form action="/sock/addRoute" method="post" style="margin-left: 40%;margin-top: 2%" >
+<form onsubmit="return validata()" action="/sock/addRoute" method="post" style="margin-left: 40%;margin-top: 2%" >
     <input type=text class="css-input" name="nextStation">
     <br>
     <br>
-    <button style="margin-left: 6%" class="getInfoButton" type="submit">add station</button>
+    <button style="margin-left: 6%" class="getInfoButton" id="btn" type="submit" >add station</button>
 </form>
 
 
@@ -86,6 +88,26 @@
     <input type=hidden name="save" value="save">
     <button style="margin-left: 8%;" type="submit" class="addRouteButton">Save route</button></form>
 
+<%--<script>--%>
+    <%--var station = ['Cache', 'Inferno','Mirage','Train','Overpass','Nuke','Subzero','Office','Dust','Vertigo'];--%>
 
+    <%--function validata() {--%>
+        <%--var str = document.getElementById("btn").value;--%>
+
+
+        <%--for(i=0;i<station.length;i++)--%>
+        <%--{--%>
+            <%--if(str==station[i])--%>
+            <%--{--%>
+                <%--console.log(str);--%>
+                <%--return true;--%>
+            <%--}--%>
+        <%--}--%>
+        <%--alert("Enter correct value");--%>
+        <%--console.log("Err");--%>
+        <%--// window.location.href='/sock/addRouteJsp';--%>
+        <%--return false;--%>
+    <%--}--%>
+<%--</script>--%>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package controller;
 
-import model.dao.imp.BaseGetInfo;
+import model.dao.daointerfaces.DAoRoute;
+import model.dao.imp.RouteTableInfo;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @WebServlet(name = "ServletInfo")
 public class ServletInfo extends HttpServlet {
@@ -26,26 +26,16 @@ public class ServletInfo extends HttpServlet {
             System.out.println(result);
 
             BaseGetInfo baseGetInfo = new BaseGetInfo();
-            baseGetInfo.deleteRoute(result);
+
+            DAoRoute dAoRoute = new RouteTableInfo();
+
+
+            dAoRoute.deleteRoute(result);
             RequestDispatcher dispatcher = getServletContext()
                     .getRequestDispatcher("/scheduleJsp");
             dispatcher.forward(request, response);
         }
 
-
-
-
-
-   //     BaseGetInfo baseGetInfo = new BaseGetInfo();
-   //     ArrayList<String> stationList = baseGetInfo.getDoubleNameCrossing(1);
-
-//        System.out.println(baseGetInfo.getCrossingInStation(stationList));
-//        System.out.println(stationList);
-
-//        System.out.println(baseGetInfo.getStartCrossingTimeArray(2));
-//        System.out.println(baseGetInfo.getEndCrossingTimeArray(2));
-
-  //      System.out.println(baseGetInfo.getDoubleNameCrossing(1));
             RequestDispatcher dispatcher = getServletContext()
                     .getRequestDispatcher("/infoJsp");
             dispatcher.forward(request, response);

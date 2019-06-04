@@ -31,7 +31,7 @@
 
 </table>
 
-<form onsumbit="return validata()" action="/sock/addRoute" method="post">
+<form onsubmit="return validata()" action="/sock/addRoute" method="post">
     <input style="margin-left:30%;margin-top:5%;" id="btn" class="css-input" type=text     name="startStation" placeholder="Station name">
     <input class="css-input" type="number"   name="startTime" placeholder="start time">
     <button type="submit" class="getInfoButton" onClick="validata()">Next</button>
@@ -57,6 +57,7 @@
         }
         alert("Enter correct value");
         console.log("Err");
+        window.location.href='/sock/startStationJsp';
         return false;
     }
 </script>

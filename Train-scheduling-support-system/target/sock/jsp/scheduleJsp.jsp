@@ -1,5 +1,9 @@
 <%@ page import="model.dao.imp.BaseGetInfo" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.dao.daointerfaces.DAoRoute" %>
+<%@ page import="model.dao.daointerfaces.DAoSchedule" %>
+<%@ page import="model.dao.imp.ScheduleTableInfo" %>
+<%@ page import="model.dao.imp.RouteTableInfo" %><%--
   Created by IntelliJ IDEA.
   User: mturo
   Date: 28.05.2019
@@ -31,16 +35,21 @@
             </tr>
             </thead>
         </table>
-<%BaseGetInfo BD = new BaseGetInfo();%>
-<%int count = BD.getCountRoute();%>
-<%ArrayList<Integer>indexList = BD.getDistinctRouteSchedule();%>
+
+<%DAoSchedule dAoSchedule = new ScheduleTableInfo();%>
+<%DAoRoute dAoRoute = new RouteTableInfo();%>
+
+
+
+<%int count = dAoSchedule.getCountRoute();%>
+<%ArrayList<Integer>indexList = dAoSchedule.getDistinctRouteSchedule();%>
 
 
     <%for (int i=0;i<count;i++){%>
         <%int currentIndex = indexList.get(i);%>
-        <%ArrayList<String>stationList = BD.getStationSchedule(currentIndex);%>
-        <%ArrayList<Integer>timeList = BD.getTimeSchedule(currentIndex);%>
-        <%String trainName = BD.getNameTrainInSchedule(currentIndex);%>
+        <%ArrayList<String>stationList = dAoSchedule.getStationSchedule(currentIndex);%>
+        <%ArrayList<Integer>timeList = dAoSchedule.getTimeSchedule(currentIndex);%>
+        <%String trainName = dAoSchedule.getNameTrainInSchedule(currentIndex);%>
       <table class="cinereousTable">
        <thead>
         <tr>

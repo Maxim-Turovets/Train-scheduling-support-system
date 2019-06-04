@@ -1,5 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.dao.imp.BaseGetInfo" %><%--
+<%@ page import="model.dao.imp.BaseGetInfo" %>
+<%@ page import="model.dao.daointerfaces.DAoTrain" %>
+<%@ page import="model.dao.imp.TrainTableInfo" %><%--
   Created by IntelliJ IDEA.
   User: mturo
   Date: 26.05.2019
@@ -34,9 +36,9 @@
 
 
 <%
-    BaseGetInfo baseGetInfo = new BaseGetInfo();
-    ArrayList<String> trainList = (ArrayList<String>) baseGetInfo.getAvailableTrain();
-   // String lastStation = stationList.get(stationList.size() - 1);%>
+    DAoTrain dAoTrain = new TrainTableInfo();
+    ArrayList<String> trainList = (ArrayList<String>) dAoTrain.getAvailableTrain();
+%>
 
 
 

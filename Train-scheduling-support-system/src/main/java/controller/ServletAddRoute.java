@@ -1,6 +1,10 @@
 package controller;
 
-import model.dao.imp.BaseGetInfo;
+import model.dao.daointerfaces.DAoCrossing;
+import model.dao.daointerfaces.DAoRoute;
+import model.dao.daointerfaces.DAoSchedule;
+import model.dao.daointerfaces.DAoStation;
+import model.dao.imp.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,12 +30,9 @@ public class ServletAddRoute extends HttpServlet {
             if (request.getSession().getAttribute("startStation") == null) {
                 request.getSession().setAttribute("startStation", startStation);
                 request.getSession().setAttribute("startTime", startTime);
-//                request.getSession().setAttribute("currentStation", startStation);
-//                request.getSession().setAttribute("currentTime", startTime);
                 request.setAttribute("nextStation", startStation);
             } else {
                 request.setAttribute("nextStation", nextStation);
-//                request.getSession().setAttribute("currentStation", nextStation);
             }
 
 
@@ -51,7 +52,7 @@ public class ServletAddRoute extends HttpServlet {
                 request.getSession().setAttribute("stationList", stationList);
 
 
-                BaseGetInfo d = new BaseGetInfo();
+                DAoCrossing d = new CrossingTableInfo();
 
 
                 // add new Time Station
@@ -115,13 +116,13 @@ public class ServletAddRoute extends HttpServlet {
         }
     }
 
-    private boolean route(Integer indexCrossing, int startTime, int endtime) {
-        BaseGetInfo baseGetInfo = new BaseGetInfo();
+    private boolean route(Integer indexCrossing, int startTime, int endTime) {
+        DAoRoute dAoRoute = new RouteTableInfo();
 
-        int routeStartTime = baseGetInfo.getStartCrossingTime(indexCrossing);
-        int routeEndTime = baseGetInfo.getEndCrossingTime(indexCrossing);
+        int routeStartTime = dAoRoute.getStartCrossingTime(indexCrossing);
+        int routeEndTime = dAoRoute.getEndCrossingTime(indexCrossing);
 
-        if ((startTime >= routeStartTime && startTime <= routeEndTime) || (endtime >= routeStartTime && endtime <= routeEndTime)) {
+        if ((startTime >= routeStartTime && startTime <= routeEndTime) || (endTime >= routeStartTime && endTime <= routeEndTime)) {
             return false;
         }
 
@@ -130,33 +131,38 @@ public class ServletAddRoute extends HttpServlet {
 
 
     private void save(HttpServletRequest request) {
-        BaseGetInfo baseGetInfo = new BaseGetInfo();
+        DAoStation dAoStation = new StationTableInfo();
+        DAoCrossing dAoCrossing = new CrossingTableInfo();
+        DAoRoute dAoRoute = new RouteTableInfo();
+
         ArrayList<String> stationList = (ArrayList<String>) request.getSession().getAttribute("stationList");
         ArrayList<Integer> timeList = (ArrayList<Integer>) request.getSession().getAttribute("timeList");
         int size = stationList.size();
 
-        int lastIndex = baseGetInfo.getLastIndex() + 1;
-        baseGetInfo.setLastIndex(lastIndex);
+        int lastIndex = dAoStation.getLastIndex() + 1;
+        dAoStation.setLastIndex(lastIndex);
         for (int i = 0; i < stationList.size() - 1; i++) {
-            int indexCrossing = baseGetInfo.getCrossIndexInteger(stationList.get(i), stationList.get(i + 1));
-            baseGetInfo.insertRoute(baseGetInfo.getLastIndex(), indexCrossing, timeList.get(i), timeList.get(i + 1), i);
+            int indexCrossing = dAoCrossing.getCrossIndexInteger(stationList.get(i), stationList.get(i + 1));
+            dAoRoute.insertRoute(dAoStation.getLastIndex(), indexCrossing, timeList.get(i), timeList.get(i + 1), i);
         }
 
 
     }
 
     private void addInSchedule(HttpServletRequest request) {
-        BaseGetInfo baseGetInfo = new BaseGetInfo();
+        DAoStation dAoStation = new StationTableInfo();
+        DAoSchedule dAoSchedule = new ScheduleTableInfo();
+
         ArrayList<String> stationList = (ArrayList<String>) request.getSession().getAttribute("stationList");
         ArrayList<Integer> timeList = (ArrayList<Integer>) request.getSession().getAttribute("timeList");
-        int lastIndex = baseGetInfo.getLastIndex();
+        int lastIndex = dAoStation.getLastIndex();
         int size = stationList.size();
 
         for (int i = 0; i < stationList.size(); i++) {
-            baseGetInfo.addRouteInSchedule(stationList.get(i), timeList.get(i), lastIndex, i);
+            dAoSchedule.addRouteInSchedule(stationList.get(i), timeList.get(i), lastIndex, i);
         }
 
-        baseGetInfo.setLastIndex(lastIndex);
+        dAoStation.setLastIndex(lastIndex);
     }
 
     private void nullValue(HttpServletRequest request) {
