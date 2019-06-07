@@ -6,7 +6,7 @@ public class CommandList {
 
     public static  Command valueOf(String commandName) {
         switch (commandName) {
-            case "addRoute":
+            case "startStation":
                 return new StartStationCommand();
             case "getInfo":
                 return new GetInfoStationCommand();
@@ -18,6 +18,8 @@ public class CommandList {
                 return  new AddTrainCommand();
             case "addStation":
                 return  new AddStationCommand();
+            case "deleteRoute":
+                return  new DeleteRouteCommand();
             default:
                 break;
         }

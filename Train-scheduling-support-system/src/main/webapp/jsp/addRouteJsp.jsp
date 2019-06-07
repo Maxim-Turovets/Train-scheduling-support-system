@@ -46,6 +46,10 @@
         ArrayList<String> possibleStation = baseGetInfo.getArrayNameStation(baseGetInfo.getPossibleWay(baseGetInfo.getIndexStation(lastStation)));%>
     <%ArrayList<Integer> timeList = (ArrayList<Integer>) request.getSession().getAttribute("timeList");%>
 
+<%if(request.getSession().getAttribute("alert")!=null){%>
+ <script>alert("Sorry , this route is already busy")</script>
+ <%request.getSession().setAttribute("alert",null);%>
+<%}%>
 
 <%--<%--%>
     <%--List<String> q = new ArrayList<String>();--%>
@@ -92,12 +96,12 @@
 
 
 
-<form onsubmit="return validata()" action="/sock/addRoute" method="post" style="margin-left: 40%;margin-top: 2%" >
-    <input type=text class="css-input" name="nextStation">
+<form onsubmit="return validDate()" action="/sock/addRoute" method="post" style="margin-left: 40%;margin-top: 2%" >
+    <input type=text class="css-input" name="nextStation" id="btn">
     <input type=hidden name="command" value="addStation">
     <br>
     <br>
-    <button style="margin-left: 6%" class="getInfoButton" id="btn" type="submit" >add station</button>
+    <button style="margin-left: 6%" class="getInfoButton"  type="submit" >add station</button>
 </form>
 
 
@@ -105,26 +109,27 @@
     <input type=hidden name="command" value="addTrain">
     <button style="margin-left: 8%;" type="submit" class="addRouteButton">Save route</button></form>
 
-<%--<script>--%>
-    <%--var station = ['Cache', 'Inferno','Mirage','Train','Overpass','Nuke','Subzero','Office','Dust','Vertigo'];--%>
 
-    <%--function validata() {--%>
-        <%--var str = document.getElementById("btn").value;--%>
+<script>
+    var station = ['Cache', 'Inferno','Mirage','Train','Overpass','Nuke','Subzero','Office','Dust','Vertigo'];
+
+    function validDate() {
+        var str = document.getElementById("btn").value;
 
 
-        <%--for(i=0;i<station.length;i++)--%>
-        <%--{--%>
-            <%--if(str==station[i])--%>
-            <%--{--%>
-                <%--console.log(str);--%>
-                <%--return true;--%>
-            <%--}--%>
-        <%--}--%>
-        <%--alert("Enter correct value");--%>
-        <%--console.log("Err");--%>
-        <%--// window.location.href='/sock/addRouteJsp';--%>
-        <%--return false;--%>
-    <%--}--%>
-<%--</script>--%>
+        for(i=0;i<station.length;i++)
+        {
+            if(str==station[i])
+            {
+                console.log(str);
+                return true;
+            }
+        }
+        alert("Enter correct value");
+        console.log("Err");
+        window.location.href='/sock/startStationJsp';
+        return false;
+    }
+</script>
 </body>
 </html>

@@ -67,6 +67,7 @@
 
 <form action="/sock/addTrain" method="post" style="margin-left: 40%;margin-top: 2%" >
     <input type=text class="css-input" name="nameTrain">
+    <input type=hidden name="command" value="startStation">
     <br>
     <br>
     <button style="margin-left: 6%" class="getInfoButton" type="submit">add Train</button>

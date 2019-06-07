@@ -19,9 +19,7 @@ public class ServletMain extends HttpServlet {
 
 
         String commandName = request.getParameter("command");
-
         Command command = CommandList.valueOf(commandName);
-
         RequestDispatcher dispatcher = getServletContext()
                     .getRequestDispatcher(command.execute(request));
             dispatcher.forward(request, response);

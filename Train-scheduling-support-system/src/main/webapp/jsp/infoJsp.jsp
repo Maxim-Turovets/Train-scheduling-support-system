@@ -32,6 +32,7 @@
 %>
 
     <form  style="margin-left: 35%;" action="/sock/info" method="get">
+        <input type="hidden" name="command" value="getInfo">
         <input type=text name="stationName"  class="css-input" placeholder="Enter station" >
        <button type="submit" class="getInfoButton">Get Info</button></form>
     <br>

@@ -58,7 +58,7 @@
 
         <div class="right">
             <form action="/sock/main" method="get">
-            <input type="hidden" name="command" value="addRoute">
+            <input type="hidden" name="command" value="startStation">
                 <button type="submit" style="width: 100%;height: 100%;opacity:-5.7"></button>
             </form>
             <div class="text">Add New Route</div>

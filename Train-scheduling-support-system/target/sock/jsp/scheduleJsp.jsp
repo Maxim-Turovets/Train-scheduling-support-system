@@ -56,6 +56,7 @@
             <th><h2><b style="color:#476e9e"><%=trainName%></b>  <%=stationList.get(0)%>-<%=stationList.get(stationList.size()-1)%>- <b style="color:black"><%=currentIndex%></b></h2></th>
             <th><h2><%=timeList.get(0)%>-<%=timeList.get(timeList.size()-1)%></h2>
                 <form action="/sock/info" method="get">
+                    <input type="hidden" name="command" value="deleteRoute">
                     <input type="hidden" name="delete" value="<%=currentIndex%>">
                     <button type="submit">delete</button>
                 </form>

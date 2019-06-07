@@ -68,6 +68,7 @@ public class AddStationServise {
                 timeList.add(newTime);
                 request.getSession().setAttribute("timeList", timeList);
             } else {
+                request.getSession().setAttribute("alert", 1);
                 stationList.remove(stationList.size() - 1);
                 request.getSession().setAttribute("stationList", stationList);
             }

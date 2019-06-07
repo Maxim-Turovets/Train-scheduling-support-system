@@ -1,5 +1,7 @@
 package controller;
 
+import controller.command.Command;
+import controller.command.CommandList;
 import model.dao.daointerfaces.DAoRoute;
 import model.dao.imp.RouteTableInfo;
 
@@ -13,32 +15,14 @@ import java.io.IOException;
 
 @WebServlet(name = "ServletInfo")
 public class ServletInfo extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if(request.getParameter("delete")!=null)
-        {
-            String strIndex = request.getParameter("delete");
-            int result = Integer.parseInt(strIndex);
-            System.out.println(result);
-
-
-
-            DAoRoute dAoRoute = new RouteTableInfo();
-
-
-            dAoRoute.deleteRoute(result);
-            RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher("/scheduleJsp");
-            dispatcher.forward(request, response);
-        }
-
-            RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher("/infoJsp");
-            dispatcher.forward(request, response);
+        String commandName = request.getParameter("command");
+        Command command = CommandList.valueOf(commandName);
+        RequestDispatcher dispatcher = getServletContext()
+                .getRequestDispatcher(command.execute(request));
+        dispatcher.forward(request, response);
 
     }
 }
