@@ -23,7 +23,7 @@ public class ServletMain extends HttpServlet {
         Command command = CommandList.valueOf(commandName);
 
         RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher(command.execute());
+                    .getRequestDispatcher(command.execute(request));
             dispatcher.forward(request, response);
 
 

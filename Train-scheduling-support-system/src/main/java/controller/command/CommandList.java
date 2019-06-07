@@ -1,22 +1,23 @@
 package controller.command;
 
-import controller.command.impl.AddRouteCommand;
-import controller.command.impl.GetInfoStationCommand;
-import controller.command.impl.GetMapCommand;
-import controller.command.impl.GetScheduleCommand;
+import controller.command.impl.*;
 
 public class CommandList {
 
     public static  Command valueOf(String commandName) {
         switch (commandName) {
             case "addRoute":
-                return new AddRouteCommand();
+                return new StartStationCommand();
             case "getInfo":
                 return new GetInfoStationCommand();
             case "getSchedule":
                 return new GetScheduleCommand();
             case "getMap":
                 return new GetMapCommand();
+            case "addTrain":
+                return  new AddTrainCommand();
+            case "addStation":
+                return  new AddStationCommand();
             default:
                 break;
         }

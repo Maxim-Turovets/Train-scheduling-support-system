@@ -31,10 +31,11 @@
 
 </table>
 
-<form onsubmit="return validata()" action="/sock/addRoute" method="post">
+<form onsubmit="return validDate()" action="/sock/addRoute" method="post">
     <input style="margin-left:30%;margin-top:5%;" id="btn" class="css-input" type=text     name="startStation" placeholder="Station name">
+    <input type="hidden"   name="command" value="addStation">
     <input class="css-input" type="number"   name="startTime" placeholder="start time">
-    <button type="submit" class="getInfoButton" onClick="validata()">Next</button>
+    <button type="submit" class="getInfoButton" onClick="">Next</button>
 </form>
 
 
@@ -43,7 +44,7 @@
 <script>
     var station = ['Cache', 'Inferno','Mirage','Train','Overpass','Nuke','Subzero','Office','Dust','Vertigo'];
 
-    function validata() {
+    function validDate() {
         var str = document.getElementById("btn").value;
 
 

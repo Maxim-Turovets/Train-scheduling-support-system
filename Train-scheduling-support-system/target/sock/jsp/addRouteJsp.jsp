@@ -1,7 +1,12 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.dao.imp.BaseGetInfo" %>
 <%@ page import="model.dao.daointerfaces.DAoStation" %>
-<%@ page import="model.dao.imp.StationTableInfo" %><%--
+<%@ page import="model.dao.imp.StationTableInfo" %>
+<%@ page import="java.util.List" %>
+
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%--
   Created by IntelliJ IDEA.
   User: mturo
   Date: 26.05.2019
@@ -34,50 +39,62 @@
 
 </table>
 
-
     <%
-            DAoStation baseGetInfo = new StationTableInfo();
-            ArrayList<String> stationList = (ArrayList<String>) request.getSession().getAttribute("stationList");
-            String lastStation = stationList.get(stationList.size() - 1);
-            ArrayList<String> list = baseGetInfo.getArrayNameStation(baseGetInfo.getPossibleWay(baseGetInfo.getIndexStation(lastStation)));%>
-    <%ArrayList<String> list2 = (ArrayList<String>) request.getSession().getAttribute("stationList");%>
-    <%ArrayList<Integer> list3 = (ArrayList<Integer>) request.getSession().getAttribute("timeList");%>
+        DAoStation baseGetInfo = new StationTableInfo();
+        ArrayList<String> stationList = (ArrayList<String>) request.getSession().getAttribute("stationList");
+        String lastStation = stationList.get(stationList.size() - 1);
+        ArrayList<String> possibleStation = baseGetInfo.getArrayNameStation(baseGetInfo.getPossibleWay(baseGetInfo.getIndexStation(lastStation)));%>
+    <%ArrayList<Integer> timeList = (ArrayList<Integer>) request.getSession().getAttribute("timeList");%>
+
+
+<%--<%--%>
+    <%--List<String> q = new ArrayList<String>();--%>
+    <%--q.add("Продукты");--%>
+    <%--q.add("Одежда");--%>
+    <%--q.add("Обувь");--%>
+    <%--q.add("Спортивный инвентарь");--%>
+    <%--request.setAttribute("possibleStation", q);--%>
+<%--%>--%>
+
+<%--<h3>Список групп товаров</h3>--%>
+<%--<ul>--%>
+    <%--<c:forEach items="${possibleStation}" var="i" >--%>
+        <%--<li><c:out value="${i}" /></li><br />--%>
+    <%--</c:forEach>--%>
+<%--</ul>--%>
 
 
 <table class="cinereousTable">
     <tbody>
     <tr>
-        <% for (int i = 0; i < list2.size(); i++) { %>
-        <td><%=" " + list2.get(i) + "(" + list3.get(i) + "h) ⟹"%></td>
+        <% for (int i = 0; i < stationList.size(); i++) { %>
+        <td><%=" " + stationList.get(i) + "(" + timeList.get(i) + "h) ⟹"%></td>
         <%}%>
     </tr>
     </tbody>
 </table>
-
-
-
 <table class="cinereousTable" style="max-width: 100px;margin-left: 45%;margin-top: 2%">
-
     <thead>
     <tr>
         <th>Station</th>
     </tr>
     <thead>
-
-        <% for (int i = 0; i < list.size(); i++) { %>
-        <tbody>
-          <tr>
-        <th><%= list.get(i)%></th>
-          </tr>
-         </tbody>
-        <%}%>
-
+        <% for (int i = 0; i < possibleStation.size(); i++) { %>
+    <tbody>
+    <tr>
+        <th><%= possibleStation.get(i)%></th>
+    </tr>
+    </tbody>
+    <%}%>
 </table>
+
+
 
 
 
 <form onsubmit="return validata()" action="/sock/addRoute" method="post" style="margin-left: 40%;margin-top: 2%" >
     <input type=text class="css-input" name="nextStation">
+    <input type=hidden name="command" value="addStation">
     <br>
     <br>
     <button style="margin-left: 6%" class="getInfoButton" id="btn" type="submit" >add station</button>
@@ -85,7 +102,7 @@
 
 
 <form action="/sock/addRoute" method="post" style="margin-left: 40%">
-    <input type=hidden name="save" value="save">
+    <input type=hidden name="command" value="addTrain">
     <button style="margin-left: 8%;" type="submit" class="addRouteButton">Save route</button></form>
 
 <%--<script>--%>

@@ -40,7 +40,7 @@ public class StationTableInfo implements DAoStation {
         } finally {
             try {
                 statement.close();
-                connection.close();
+               // connection.close();
                 resultSet.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -60,11 +60,11 @@ public class StationTableInfo implements DAoStation {
 
         try {
             baseConnection = BaseConnection.getInstance();
-            connection = baseConnection.connection;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        connection = baseConnection.connection;
         ArrayList<Integer> localList = new ArrayList<>();
 
         try {

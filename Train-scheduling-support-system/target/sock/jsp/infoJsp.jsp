@@ -27,7 +27,7 @@
     <%DAoRoute dAoRoute = new RouteTableInfo();%>
     <%DAoCrossing dAoCrossing = new CrossingTableInfo();%>
 
-<%   BaseGetInfo baseGetInfo = new BaseGetInfo();
+<%
      ArrayList<Integer> stationList = dAoCrossing.getCrossIndex(request.getParameter("stationName"));
 %>
 

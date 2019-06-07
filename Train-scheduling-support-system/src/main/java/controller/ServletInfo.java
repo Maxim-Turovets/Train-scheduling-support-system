@@ -25,7 +25,7 @@ public class ServletInfo extends HttpServlet {
             int result = Integer.parseInt(strIndex);
             System.out.println(result);
 
-            BaseGetInfo baseGetInfo = new BaseGetInfo();
+
 
             DAoRoute dAoRoute = new RouteTableInfo();
 

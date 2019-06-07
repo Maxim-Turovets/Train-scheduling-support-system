@@ -1,4 +1,4 @@
-<%@ page import="model.dao.imp.BaseGetInfo" %>
+
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.dao.daointerfaces.DAoRoute" %>
 <%@ page import="model.dao.daointerfaces.DAoSchedule" %>

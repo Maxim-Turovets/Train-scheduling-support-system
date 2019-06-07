@@ -166,8 +166,17 @@ public class RouteTableInfo implements DAoRoute {
 
     @Override
     public void insertRoute(int routeId, int indexCrossing, int startTime, int endTime, int numberRoute) {
-        Statement statement = null;
+        BaseConnection baseConnection = null;
         Connection connection = null;
+        Statement statement = null;
+
+        try {
+            baseConnection = BaseConnection.getInstance();
+            connection = baseConnection.connection;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         try {
             statement = connection.createStatement();
             statement.execute("INSERT  into Route (route_id, crossing_id, crossing_time_start, crossing_time_end, crossing_number)\n" +

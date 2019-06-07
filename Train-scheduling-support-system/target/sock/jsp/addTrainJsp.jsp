@@ -1,5 +1,4 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.dao.imp.BaseGetInfo" %>
 <%@ page import="model.dao.daointerfaces.DAoTrain" %>
 <%@ page import="model.dao.imp.TrainTableInfo" %><%--
   Created by IntelliJ IDEA.
